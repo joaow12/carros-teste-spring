@@ -2,10 +2,19 @@ package br.com.magnasistemas.carros.vo;
 
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UsuarioVO {
 
+	@NotBlank
 	private String nome;
+	@NotBlank
+	@Length(max = 11, min = 11)
 	private String cpf;
+	@NotBlank
+	@Length(max = 8, min = 4)
 	private String senha;
 	private List<CarroVO> carros;
 

@@ -8,23 +8,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import br.com.magnasistemas.carros.enums.Modelo;
+import br.com.magnasistemas.carros.enums.Marca;
 
-@Entity
+@Entity(name = "CARRO")
 public class Carro {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank
 	private String nome;
+
+	@NotBlank
 	private String placa;
 
 	@Enumerated(value = EnumType.STRING)
-	private Modelo modelo;
+	@NotNull
+	private Marca marca;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
+
+	public Carro(@NotBlank String nome, @NotBlank String placa, @NotBlank Marca marca) {
+		this.nome = nome;
+		this.placa = placa;
+		this.marca = marca;
+	}
+
+	public Carro() {
+	}
+
+	public Carro(Long id, @NotBlank String nome, @NotBlank String placa, @NotNull Marca marca) {
+		this.id = id;
+		this.nome = nome;
+		this.placa = placa;
+		this.marca = marca;
+	}
 
 	public Long getId() {
 		return id;
@@ -50,12 +73,12 @@ public class Carro {
 		this.placa = placa;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
+	public Marca getMarca() {
+		return marca;
 	}
 
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	public Usuario getUsuario() {

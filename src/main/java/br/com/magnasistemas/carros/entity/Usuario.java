@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Entity(name = "USUARIO")
 public class Usuario {
 
 	@Id
@@ -30,6 +30,12 @@ public class Usuario {
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private List<Carro> carros;
+
+	public Usuario(@NotBlank String nome, @NotBlank String cpf, @NotBlank String senha) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.senha = senha;
+	}
 
 	public Usuario() {
 	}

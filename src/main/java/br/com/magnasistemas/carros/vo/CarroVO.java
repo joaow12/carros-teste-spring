@@ -1,18 +1,25 @@
 package br.com.magnasistemas.carros.vo;
 
-import br.com.magnasistemas.carros.enums.Modelo;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import br.com.magnasistemas.carros.enums.Marca;
 
 public class CarroVO {
 
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String placa;
-	private Modelo modelo;
+	@NotNull
+	private Marca marca;
+	@NotBlank
 	private String usuario;
 
-	public CarroVO(String nome, String placa, Modelo modelo, String usuario) {
+	public CarroVO(String nome, String placa, Marca marca, String usuario) {
 		this.nome = nome;
 		this.placa = placa;
-		this.modelo = modelo;
+		this.marca = marca;
 		this.usuario = usuario;
 	}
 
@@ -36,12 +43,12 @@ public class CarroVO {
 		this.placa = placa;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
+	public Marca getMarca() {
+		return marca;
 	}
 
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
+	public void setMarca(Marca marca) {
+		this.marca = marca;
 	}
 
 	public String getUsuario() {

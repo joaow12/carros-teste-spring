@@ -35,12 +35,14 @@ public class UsuarioService {
 	}
 
 	public Optional<CarroVO> buscarPorIdCarro(Long id) {
-		Optional<Carro> c = carroRepository.findById(id);
+		Optional<Carro> c = Optional.of(carroRepository.findById(id).orElseThrow
+				(() -> new RuntimeException("Não foi possivel encontrar o carro com esse ID")));
 		return verificarExistenciaCarro(c);
 	}
 
 	public Optional<UsuarioVO> buscarPorIdUsuario(Long id) {
-		Optional<Usuario> u = repository.findById(id);
+		Optional<Usuario> u = Optional.of(repository.findById(id).orElseThrow
+				(() -> new RuntimeException("Não foi possivel encontrar a pessoa com esse ID")));
 		return verificarExistenciaUsuario(u);
 	}
 
@@ -91,7 +93,7 @@ public class UsuarioService {
 		CarroVO vo = new CarroVO();
 		vo.setNome(carro.getNome());
 		vo.setPlaca(carro.getPlaca());
-		vo.setModelo(carro.getModelo());
+		vo.setMarca(carro.getMarca());
 		vo.setUsuario(carro.getUsuario().getNome());
 		return vo;
 	}
@@ -102,7 +104,7 @@ public class UsuarioService {
 		} else {
 			Carro carro = new Carro();
 			carro.setNome(c.getNome());
-			carro.setModelo(c.getModelo());
+			carro.setMarca(c.getMarca());
 			carro.setPlaca(c.getPlaca());
 			Optional<Usuario> usuario = repository.findByCpf(c.getUsuario());
 			carro.setUsuario(usuario.get());
@@ -124,7 +126,7 @@ public class UsuarioService {
 		else {
 			c.get().setNome(carro.getNome());
 			c.get().setPlaca(carro.getPlaca());
-			c.get().setModelo(carro.getModelo());
+			c.get().setMarca(carro.getMarca());
 			carroRepository.save(c.get());
 
 			return Optional.of(converterCarroEntityParaVO(c.get()));

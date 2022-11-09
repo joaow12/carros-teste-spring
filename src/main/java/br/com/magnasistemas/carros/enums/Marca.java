@@ -1,6 +1,6 @@
 package br.com.magnasistemas.carros.enums;
 
-public enum Modelo {
+public enum Marca {
 	
 	Honda,
 	Renault,

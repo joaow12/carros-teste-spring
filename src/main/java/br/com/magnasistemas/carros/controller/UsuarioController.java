@@ -1,5 +1,7 @@
 package br.com.magnasistemas.carros.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.magnasistemas.carros.service.UsuarioService;
-import br.com.magnasistemas.carros.vo.CarroVO;
 import br.com.magnasistemas.carros.vo.UsuarioVO;
 
 @RestController
@@ -46,14 +47,14 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UsuarioVO> cadastrar(@RequestBody UsuarioVO usuario) {
+	public ResponseEntity<UsuarioVO> cadastrar(@RequestBody @Valid UsuarioVO usuario) {
 		return service.cadastrarUsuario(usuario)
 				.map(r -> ResponseEntity.status(HttpStatus.CREATED).body(usuario))
 				.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UsuarioVO> atualizar(@PathVariable Long id, @RequestBody UsuarioVO usuario){
+	public ResponseEntity<UsuarioVO> atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioVO usuario){
 		return service.atualizarCadastroUsuario(id, usuario)
 				.map(r -> ResponseEntity.status(HttpStatus.OK).body(r))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
