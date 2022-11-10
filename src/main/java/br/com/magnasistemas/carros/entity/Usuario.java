@@ -1,5 +1,6 @@
 package br.com.magnasistemas.carros.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,9 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-@Entity(name = "USUARIO")
+@Entity
+@Table(name = "TB_USUARIO")
 public class Usuario {
 
 	@Id
@@ -29,7 +32,7 @@ public class Usuario {
 	private String senha;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<Carro> carros;
+	private List<Carro> carros = new ArrayList<>();
 
 	public Usuario(@NotBlank String nome, @NotBlank String cpf, @NotBlank String senha) {
 		this.nome = nome;

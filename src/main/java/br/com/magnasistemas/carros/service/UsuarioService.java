@@ -35,25 +35,22 @@ public class UsuarioService {
 	}
 
 	public Optional<CarroVO> buscarPorIdCarro(Long id) {
-		Optional<Carro> c = Optional.of(carroRepository.findById(id).orElseThrow
-				(() -> new RuntimeException("Não foi possivel encontrar o carro com esse ID")));
+		Optional<Carro> c = Optional.of(carroRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Não foi possivel encontrar o carro com esse ID")));
 		return verificarExistenciaCarro(c);
 	}
 
 	public Optional<UsuarioVO> buscarPorIdUsuario(Long id) {
-		Optional<Usuario> u = Optional.of(repository.findById(id).orElseThrow
-				(() -> new RuntimeException("Não foi possivel encontrar a pessoa com esse ID")));
+		Optional<Usuario> u = Optional.of(repository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Não foi possivel encontrar a pessoa com esse ID")));
 		return verificarExistenciaUsuario(u);
 	}
 
 	public Optional<CarroVO> buscarPorPlaca(String placa) {
-		Optional<Carro> c = carroRepository.findByPlaca(placa);
-		return verificarExistenciaCarro(c);
-	}
+		Optional<Carro> c = Optional.of(carroRepository.findByPlaca(placa).orElseThrow(
+				() -> new RuntimeException("Não foi possivel encontrar " + "um carro com essa placa: " + placa)));
 
-	public Optional<UsuarioVO> buscarPorCpf(String cpf) {
-		Optional<Usuario> u = repository.findByCpf(cpf);
-		return verificarExistenciaUsuario(u);
+		return verificarExistenciaCarro(c);
 	}
 
 	private Optional<CarroVO> verificarExistenciaCarro(Optional<Carro> c) {
@@ -62,6 +59,13 @@ public class UsuarioService {
 		} else {
 			return Optional.empty();
 		}
+	}
+
+	public Optional<UsuarioVO> buscarPorCpf(String cpf) {
+		Optional<Usuario> u = Optional.of(repository.findByCpf(cpf).orElseThrow(
+				() -> new RuntimeException("Não foi possivel encontrar uma" + " pessoa com esse CPF: " + cpf)));
+
+		return verificarExistenciaUsuario(u);
 	}
 
 	private Optional<UsuarioVO> verificarExistenciaUsuario(Optional<Usuario> u) {
@@ -146,9 +150,9 @@ public class UsuarioService {
 			u.setCpf(usuario.getCpf());
 			u.setNome(usuario.getNome());
 			u.setSenha(usuario.getSenha());
-			
+
 			return Optional.of(repository.save(u));
-			
+
 		}
 	}
 
@@ -159,20 +163,20 @@ public class UsuarioService {
 
 	public Optional<UsuarioVO> atualizarCadastroUsuario(Long id, UsuarioVO usuario) {
 		Optional<Usuario> u = repository.findById(id);
-		if(u.isEmpty()) {
+		if (u.isEmpty()) {
 			return Optional.empty();
 		}
-		
+
 		else if (repository.findByCpf(usuario.getCpf()).isPresent()) {
 			return Optional.empty();
 		}
-		
+
 		else {
 			u.get().setNome(usuario.getNome());
 			u.get().setCpf(usuario.getCpf());
 			u.get().setSenha(usuario.getSenha());
 			repository.save(u.get());
-			
+
 			return Optional.of(converterUsuarioEntityParaVO(u.get()));
 		}
 	}

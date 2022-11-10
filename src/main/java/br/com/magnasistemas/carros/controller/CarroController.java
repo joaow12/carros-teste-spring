@@ -35,14 +35,14 @@ public class CarroController {
 	@GetMapping("/{id}")
 	public ResponseEntity<CarroVO> buscaPorID(@PathVariable Long id) {
 		return service.buscarPorIdCarro(id)
-				.map(r -> ResponseEntity.ok(r))
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@GetMapping("placa/{placa}")
 	public ResponseEntity<CarroVO> buscaPorPlaca(@PathVariable String placa) {
 		return service.buscarPorPlaca(placa)
-				.map(r -> ResponseEntity.ok(r))
+				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
