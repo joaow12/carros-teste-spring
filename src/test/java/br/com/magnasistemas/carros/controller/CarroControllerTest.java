@@ -24,7 +24,7 @@ import br.com.magnasistemas.carros.entity.Usuario;
 import br.com.magnasistemas.carros.enums.Marca;
 import br.com.magnasistemas.carros.repository.CarroRepository;
 import br.com.magnasistemas.carros.repository.UsuarioRepository;
-import br.com.magnasistemas.carros.service.UsuarioService;
+import br.com.magnasistemas.carros.service.CarroService;
 import br.com.magnasistemas.carros.vo.CarroVO;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -42,7 +42,7 @@ public class CarroControllerTest {
 	private TestRestTemplate testRestTemplate;
 
 	@Autowired
-	private UsuarioService service;
+	private CarroService service;
 
 	@BeforeAll
 	void start() {

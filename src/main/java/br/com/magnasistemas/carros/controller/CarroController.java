@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.magnasistemas.carros.service.UsuarioService;
+import br.com.magnasistemas.carros.service.CarroService;
 import br.com.magnasistemas.carros.vo.CarroVO;
 
 @RestController
@@ -25,7 +25,7 @@ import br.com.magnasistemas.carros.vo.CarroVO;
 public class CarroController {
 
 	@Autowired
-	private UsuarioService service;
+	private CarroService service;
 
 	@GetMapping
 	public ResponseEntity<Page<CarroVO>> mostrarTodos(@PageableDefault(size = 5) Pageable page) {
